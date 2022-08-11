@@ -1,6 +1,9 @@
-import { Container, Text, Title, useMantineTheme } from "@mantine/core";
+import { Container, Stack, Group, Space } from "@mantine/core";
 import React from "react";
-import { useMediaQuery } from "src/lib/mantine/useMediaQuery";
+import { useMediaQuery } from "lib/mantine/useMediaQuery";
+import { TitleText } from "components/atoms/TitleText";
+import { TitleDescription } from "components/atoms/TitleDescription";
+import { ShareButtons } from "components/molecules/ShareButtons";
 
 export const TitleArea = () => {
   const isDesktop = useMediaQuery("sm");
@@ -18,9 +21,23 @@ export const TitleArea = () => {
           width: "100%",
         })}
       >
-        <Title>
-          <Text color="white">Lily IT University</Text>
-        </Title>
+        {isDesktop && (
+          <Group position="apart">
+            <Stack>
+              <TitleText />
+              <TitleDescription />
+            </Stack>
+            <ShareButtons />
+          </Group>
+        )}
+        {isDesktop || (
+          <Stack spacing={4}>
+            <TitleText />
+            <TitleDescription />
+            <Space h={40} />
+            <ShareButtons />
+          </Stack>
+        )}
       </Container>
     </>
   );
