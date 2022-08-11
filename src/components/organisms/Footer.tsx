@@ -16,7 +16,7 @@ type Props = {
 export const Footer: React.FC<Props> = ({ height }) => {
   const { classes } = useStyles();
   return (
-    <footer className={`w-full px-4 h-[${height}px]`}>
+    <footer className={`w-full px-4 h-[${height}px] grow-0`}>
       <div className={classes.inner}></div>
       <Center style={{ height: height }}>
         <Text size={10} color="dimmed" weight="bold">
