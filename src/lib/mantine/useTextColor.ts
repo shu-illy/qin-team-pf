@@ -1,7 +1,7 @@
 import { useMantineTheme } from "@mantine/core";
+import { useIsDark } from "lib/mantine/useIsDark";
 export const useTextColor = () => {
+  const isDark = useIsDark();
   const theme = useMantineTheme();
-  if (theme.colorScheme === "light") return theme.black;
-
-  return theme.colors.dark[0];
+  return isDark ? theme.white : theme.colors.dark[7];
 };
