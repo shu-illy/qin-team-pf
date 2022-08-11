@@ -172,7 +172,8 @@ const mantineColors = {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  mode: "jit",
+  content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     /* Mantineと一致させる: https://mantine.dev/theming/responsive */
     screens: {
