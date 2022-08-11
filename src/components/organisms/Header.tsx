@@ -98,7 +98,6 @@ export const Header: React.FC = () => {
         backgroundColor: opened ? theme.colors.pink[6] : backgroundColor,
         border: 0,
         zIndex: 1,
-        flexGrow: 0,
       }}
     >
       <Group
