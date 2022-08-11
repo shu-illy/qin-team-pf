@@ -1,8 +1,8 @@
 import { Container } from "@mantine/core";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import React from "react";
-import { Blog } from "./Blog";
-import { Portfolio } from "./Portfolio";
+import { Blog } from "components/organisms/Blog";
+import { Portfolio } from "components/organisms/Portfolio";
 
 export const Contents: React.FC = () => {
   const isDesktop = useMediaQuery("sm");
