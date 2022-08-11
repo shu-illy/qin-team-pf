@@ -1,10 +1,10 @@
 import { createStyles, Text, Header as MantineHeader, Group, Burger, Paper } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
-import { useMediaQuery } from "src/lib/mantine/useMediaQuery";
+import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import { useMantineTheme } from "@mantine/core";
-import { useTextColor, useBackgroundColor } from "src/lib/mantine";
-import { ColorSchemeButton } from "../atoms/ColorSchemeButton";
+import { useTextColor, useBackgroundColor } from "lib/mantine";
+import { ColorSchemeButton } from "components/atoms/ColorSchemeButton";
 
 const HEADER_HEIGHT = 60;
 
