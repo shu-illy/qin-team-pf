@@ -5,7 +5,7 @@ import { Footer } from "components/organisms/Footer";
 
 const footerHeight = 65;
 
-export const Layout = () => {
+export const Layout: React.FC = () => {
   return (
     <div className="flex flex-col">
       <Header />

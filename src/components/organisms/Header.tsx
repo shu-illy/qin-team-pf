@@ -54,7 +54,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const links = [
     {
       link: "#about",

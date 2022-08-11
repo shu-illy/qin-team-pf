@@ -2,7 +2,7 @@ import { Title, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 
-export const TitleText = () => {
+export const TitleText: React.FC = () => {
   const isDesktop = useMediaQuery("sm");
   return (
     <Title>

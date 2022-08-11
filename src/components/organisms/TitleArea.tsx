@@ -5,7 +5,7 @@ import { TitleText } from "components/atoms/TitleText";
 import { TitleDescription } from "components/atoms/TitleDescription";
 import { ShareButtons } from "components/molecules/ShareButtons";
 
-export const TitleArea = () => {
+export const TitleArea: React.FC = () => {
   const isDesktop = useMediaQuery("sm");
   const paddingX = isDesktop ? 224 : 16;
   const paddingY = isDesktop ? 85.5 : 53.5;
