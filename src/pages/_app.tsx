@@ -1,4 +1,4 @@
-import "src/lib/tailwind.css";
+import "lib/tailwind.css";
 import type { AppProps } from "next/app";
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { useState } from "react";
