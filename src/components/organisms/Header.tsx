@@ -1,6 +1,6 @@
 import { createStyles, Text, Header as MantineHeader, Group, Burger, Paper } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import { useMantineTheme } from "@mantine/core";
 import { useTextColor, useBackgroundColor } from "lib/mantine";
@@ -57,7 +57,7 @@ const useStyles = createStyles((theme) => ({
 export const Header: React.FC = () => {
   const links = [
     {
-      link: "#about",
+      link: "/about",
       label: "About",
     },
     {
@@ -82,11 +82,11 @@ export const Header: React.FC = () => {
   const backgroundColor = useBackgroundColor();
 
   const items = links.map((link) => (
-    <Link key={link.label} href={link.link}>
+    <NextLink key={link.label} href={link.link}>
       <Text size={18} weight={700} className={classes.link} onClick={() => close()}>
         {link.label}
       </Text>
-    </Link>
+    </NextLink>
   ));
 
   return (
@@ -117,9 +117,11 @@ export const Header: React.FC = () => {
         )}
 
         {opened || (
-          <Text size={18} weight={700}>
-            Lily IT University
-          </Text>
+          <NextLink href={"/"} passHref>
+            <Text size={18} weight={700} component="a">
+              Lily IT University
+            </Text>
+          </NextLink>
         )}
 
         <Group spacing={16}>
