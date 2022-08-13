@@ -11,7 +11,12 @@ const PortfolioItem: React.FC<Props> = ({ portfolio }) => {
   const theme = useMantineTheme();
   return (
     <Stack spacing={8} pb={16}>
-      <Image radius="sm" src="https://picsum.photos/315/184" alt="portfolio image" />
+      <Image
+        radius="sm"
+        src="https://picsum.photos/315/184"
+        alt="portfolio image"
+        withPlaceholder
+      />
       <Text size={22} weight="bold" mt={8}>
         {portfolio.title}
       </Text>
