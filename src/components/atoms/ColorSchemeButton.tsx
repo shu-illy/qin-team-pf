@@ -15,7 +15,14 @@ export const ColorSchemeButton: React.FC<Props> = ({ shouldDisplay = true }) => 
         visibility: shouldDisplay ? "visible" : "hidden",
       }}
     >
-      <ActionIcon variant="outline" onClick={() => toggleColorScheme()} title="Toggle color scheme">
+      <ActionIcon
+        variant="outline"
+        onClick={() => toggleColorScheme()}
+        title="Toggle color scheme"
+        sx={{
+          "&:not(:disabled):active": { transform: "none" },
+        }}
+      >
         {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
       </ActionIcon>
     </div>
