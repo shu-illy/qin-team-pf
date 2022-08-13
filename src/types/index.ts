@@ -1,3 +1,4 @@
 import { Blog } from "types/Blog";
+import { Portfolio } from "types/Portfolio";
 
-export type { Blog };
+export type { Blog, Portfolio };

@@ -1,19 +1,26 @@
 import { Image, Stack, Text, useMantineTheme } from "@mantine/core";
+import { dateFormatted } from "lib/dayjs/ext";
 import React from "react";
+import { Portfolio } from "types";
 
-const PortfolioItem = () => {
+type Props = {
+  portfolio: Portfolio;
+};
+
+const PortfolioItem: React.FC<Props> = ({ portfolio }) => {
   const theme = useMantineTheme();
   return (
     <Stack spacing={8} pb={16}>
       <Image radius="sm" src="https://picsum.photos/315/184" alt="portfolio image" />
       <Text size={22} weight="bold" mt={8}>
-        IT KINGDOM
+        {portfolio.title}
       </Text>
-      <Text size={16}>
-        当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。
-      </Text>
+      <Text size={16}>{portfolio.description}</Text>
       <Text size={12} weight="bold" color={theme.colors.dark[2]}>
-        2021.10 - 2021.12
+        {`${dateFormatted(portfolio.startAt, "YYYY.M")} - ${dateFormatted(
+          portfolio.endAt,
+          "YYYY.M"
+        )}`}
       </Text>
     </Stack>
   );
