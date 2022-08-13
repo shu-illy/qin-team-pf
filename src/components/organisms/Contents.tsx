@@ -4,7 +4,6 @@ import React from "react";
 import { Portfolios } from "components/organisms/Portfolios";
 import Blogs from "components/organisms/Blogs";
 import { Blog, GithubRepository, Language, Portfolio } from "types";
-import RepositoryStatistic from "components/molecules/RepositoryStatistic";
 import GithubRepositories from "components/organisms/GithubRepositories";
 
 // TODO ダミー用データ
@@ -71,7 +70,6 @@ export const Contents: React.FC = () => {
   const gap = isDesktop ? 100 : 60;
   return (
     <Container mx={0} px={paddingX} size={99999}>
-      <RepositoryStatistic name="fork" value={111} />
       <Blogs blogs={blogs} isAll={false} />
       <Space h={gap} />
       <Portfolios isAll={false} portfolios={portfolios} />
