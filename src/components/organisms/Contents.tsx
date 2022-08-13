@@ -3,8 +3,9 @@ import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import React from "react";
 import { Portfolios } from "components/organisms/Portfolios";
 import Blogs from "components/organisms/Blogs";
-import { Blog, GithubRepository, Language, Portfolio } from "types";
+import { Blog, GithubRepository, Language, Portfolio, Tweet } from "types";
 import GithubRepositories from "components/organisms/GithubRepositories";
+import Tweets from "components/organisms/Tweets";
 
 // TODO ダミー用データ
 const blogs: Blog[] = Array.from(new Array(10)).map((_, i) => ({
@@ -64,6 +65,17 @@ const repositories: GithubRepository[] = Array.from(new Array(30)).map((_, i) =>
   ],
 }));
 
+// TODO ダミー用データ
+const tweets: Tweet[] = Array.from(new Array(30)).map((_, i) => ({
+  id: i + 1,
+  userName: "リリー",
+  userId: "lily_otk",
+  userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+  tweet:
+    "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\nhttps://www.noway-form.com/ja",
+  tweetedAt: "2021/10/11",
+}));
+
 export const Contents: React.FC = () => {
   const isDesktop = useMediaQuery("sm");
   const paddingX = isDesktop ? 240 : 16;
@@ -77,14 +89,14 @@ export const Contents: React.FC = () => {
       {isDesktop && (
         <SimpleGrid cols={2} spacing={80}>
           <GithubRepositories repositories={repositories} />
-          <Portfolios isAll={false} portfolios={portfolios} />
+          <Tweets tweets={tweets} />
         </SimpleGrid>
       )}
       {isDesktop || (
         <>
           <GithubRepositories repositories={repositories} />
           <Space h={gap} />
-          <Portfolios isAll={false} portfolios={portfolios} />
+          <Tweets tweets={tweets} />
         </>
       )}
     </Container>

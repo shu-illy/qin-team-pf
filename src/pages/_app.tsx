@@ -13,7 +13,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{ colorScheme, primaryColor: "pink" }}
+        theme={{
+          colorScheme,
+          primaryColor: "pink",
+          components: {
+            TypographyStylesProvider: {
+              styles: {
+                root: {
+                  a: { color: "#228BE6" },
+                },
+              },
+            },
+          },
+        }}
       >
         <Component {...pageProps} />
       </MantineProvider>
