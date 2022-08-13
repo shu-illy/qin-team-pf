@@ -1,4 +1,4 @@
-import { Text } from "@mantine/core";
+import { Divider, Text } from "@mantine/core";
 import React from "react";
 
 type Props = {
@@ -7,8 +7,11 @@ type Props = {
 
 export const SectionTitle: React.FC<Props> = ({ children }) => {
   return (
-    <Text size={26} component="h2">
-      {children}
-    </Text>
+    <>
+      <Text size={26} component="h2" m={0}>
+        {children}
+      </Text>
+      <Divider my="lg" pb={4} />
+    </>
   );
 };

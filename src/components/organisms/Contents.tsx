@@ -1,7 +1,7 @@
 import { Container, Space } from "@mantine/core";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import React from "react";
-import { Portfolio } from "components/organisms/Portfolio";
+import { Portfolios } from "components/organisms/Portfolios";
 import Blogs from "components/organisms/Blogs";
 import { Blog } from "types";
 
@@ -21,7 +21,8 @@ export const Contents: React.FC = () => {
     <Container mx={0} px={paddingX} size={99999}>
       <Blogs blogs={blogs} isAll={false} />
       <Space h={gap} />
-      <Portfolio isAll={false} />
+      <Portfolios isAll={false} />
+      <Space h={gap} />
     </Container>
   );
 };
