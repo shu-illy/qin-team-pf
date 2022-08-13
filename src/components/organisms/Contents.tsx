@@ -78,10 +78,9 @@ const tweets: Tweet[] = Array.from(new Array(30)).map((_, i) => ({
 
 export const Contents: React.FC = () => {
   const isDesktop = useMediaQuery("sm");
-  const paddingX = isDesktop ? 240 : 16;
-  const gap = isDesktop ? 100 : 60;
+  const gap = isDesktop ? 60 : 20;
   return (
-    <Container mx={0} px={paddingX} size={99999}>
+    <>
       <Blogs blogs={blogs} isAll={false} />
       <Space h={gap} />
       <Portfolios isAll={false} portfolios={portfolios} />
@@ -99,6 +98,6 @@ export const Contents: React.FC = () => {
           <Tweets tweets={tweets} />
         </>
       )}
-    </Container>
+    </>
   );
 };

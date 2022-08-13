@@ -1,6 +1,5 @@
-import BlogsTemplate from "components/templates/BlogsTemplate";
+import Blogs from "components/organisms/Blogs";
 import { Layout } from "components/templates/Layout";
-import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import { Blog } from "types";
@@ -12,7 +11,7 @@ type Props = {
 const BlogPage: NextPage<Props> = ({ blogs }) => {
   return (
     <Layout>
-      <BlogsTemplate blogs={blogs} />
+      <Blogs blogs={blogs} isAll={true} />
     </Layout>
   );
 };
