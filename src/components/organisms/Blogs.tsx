@@ -13,19 +13,19 @@ type Props = {
 const Blogs: React.FC<Props> = ({ blogs, isAll }) => {
   const items = isAll ? blogs : blogs.slice(0, 5);
   return (
-    <>
+    <Stack spacing={0}>
       <SectionTitle>Blog</SectionTitle>
-      <Stack spacing={24} mb={24}>
+      <Stack spacing={24}>
         {items.map((blog) => (
           <BlogItem key={blog.id} blog={blog} />
         ))}
+        {isAll || (
+          <Center mt={24}>
+            <SectionBottomButton label="View All" />
+          </Center>
+        )}
       </Stack>
-      {isAll || (
-        <Center>
-          <SectionBottomButton label="View All" />
-        </Center>
-      )}
-    </>
+    </Stack>
   );
 };
 

@@ -10,35 +10,33 @@ export const TitleArea: React.FC = () => {
   const paddingX = isDesktop ? 224 : 16;
   const paddingY = isDesktop ? 85.5 : 53.5;
   return (
-    <>
-      <Container
-        mx={0}
-        px={paddingX}
-        py={paddingY}
-        size={99999}
-        sx={(theme) => ({
-          backgroundColor: theme.colors.pink[6],
-          width: "100%",
-        })}
-      >
-        {isDesktop && (
-          <Group position="apart">
-            <Stack>
-              <TitleText />
-              <TitleDescription />
-            </Stack>
-            <ShareButtons />
-          </Group>
-        )}
-        {isDesktop || (
-          <Stack spacing={4}>
+    <Container
+      mx={0}
+      px={paddingX}
+      py={paddingY}
+      size={99999}
+      sx={(theme) => ({
+        backgroundColor: theme.colors.pink[6],
+        width: "100%",
+      })}
+    >
+      {isDesktop && (
+        <Group position="apart">
+          <Stack>
             <TitleText />
             <TitleDescription />
-            <Space h={40} />
-            <ShareButtons />
           </Stack>
-        )}
-      </Container>
-    </>
+          <ShareButtons />
+        </Group>
+      )}
+      {isDesktop || (
+        <Stack spacing={4}>
+          <TitleText />
+          <TitleDescription />
+          <Space h={40} />
+          <ShareButtons />
+        </Stack>
+      )}
+    </Container>
   );
 };

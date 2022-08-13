@@ -1,4 +1,4 @@
-import { Center, Grid, Space } from "@mantine/core";
+import { Center, Grid, Space, Stack } from "@mantine/core";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import PortfolioItem from "components/molecules/PortfolioItem";
@@ -13,7 +13,7 @@ type Props = {
 export const Portfolios: React.FC<Props> = ({ portfolios, isAll }) => {
   const items = isAll ? portfolios : portfolios.slice(0, 6);
   return (
-    <>
+    <Stack spacing={0}>
       <SectionTitle>Portfolio</SectionTitle>
       <Grid gutter={24}>
         {items.map((portfolio) => (
@@ -28,6 +28,6 @@ export const Portfolios: React.FC<Props> = ({ portfolios, isAll }) => {
           <SectionBottomButton label="View All" />
         </Center>
       )}
-    </>
+    </Stack>
   );
 };
