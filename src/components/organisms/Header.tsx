@@ -61,15 +61,15 @@ export const Header: React.FC = () => {
       label: "About",
     },
     {
-      link: "#blog",
+      link: "/blog",
       label: "Blog",
     },
     {
-      link: "#portfolio",
+      link: "/portfolio",
       label: "Portfolio",
     },
     {
-      link: "#contact",
+      link: "/contact",
       label: "Contact",
     },
   ];
