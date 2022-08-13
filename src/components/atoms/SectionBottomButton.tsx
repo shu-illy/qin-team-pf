@@ -8,7 +8,6 @@ type Props = {
 
 const SectionBottomButton: React.FC<Props> = ({ label }) => {
   const isDark = useIsDark();
-  console.log(isDark);
   return (
     <Button color="dark" radius="xl" size="md" variant={isDark ? "white" : "filled"}>
       {label}
