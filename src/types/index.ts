@@ -1,5 +1,5 @@
 import { Blog } from "types/Blog";
-import { Portfolio } from "types/Portfolio";
+import { Portfolio } from "types/Portfolioo";
 import { GithubRepository, Languages } from "types/GithubRepository";
 import { Language } from "types/Language";
 import { Tweet } from "types/Tweet";
