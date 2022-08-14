@@ -10,8 +10,8 @@ const fetcher = async (pageStr: string) => {
   const page = Number(pageStr);
   const countPerPage = 9;
   if (page > pageLimit) return [];
-  // 1秒待ってダミーデータを返す
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // 300ms待ってダミーデータを返す
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const portfolios: Portfolio[] = Array.from(new Array(countPerPage)).map((_, i) => {
     const id = (page - 1) * countPerPage + i + 1;
     return {
