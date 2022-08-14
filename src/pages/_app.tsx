@@ -1,12 +1,43 @@
-import "src/lib/tailwind.css";
+import "lib/tailwind.css";
 import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
+import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: "mantine-color-scheme",
+    defaultValue: "light",
+    getInitialValueInEffect: true,
+  });
+
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  // Cmd + Jでライトモード/ダークモードを切り替え
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Component {...pageProps} />
-    </MantineProvider>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme,
+          primaryColor: "pink",
+          components: {
+            TypographyStylesProvider: {
+              styles: {
+                root: {
+                  a: { color: "#228BE6" },
+                },
+              },
+            },
+          },
+        }}
+      >
+        <Component {...pageProps} />
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 

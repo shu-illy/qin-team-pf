@@ -14,5 +14,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  rules: {
+    "no-restricted-imports": ["error", { patterns: ["./", "../"] }],
+  },
 };
