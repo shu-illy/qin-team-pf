@@ -5,26 +5,24 @@ import { Blog } from "types";
 // https://swr.vercel.app/ja/examples/infinite-loading
 // https://www.ibrahima-ndaw.com/blog/data-fetching-in-nextjs-using-useswr/
 
-const fetcher = (pageStr: string) => {
+const fetcher = async (pageStr: string) => {
   const pageLimit = 5;
   const page = Number(pageStr);
   const countPerPage = 10;
-  const dummyUrl = `https://api.github.com/repos/reactjs/react-a11y/issues?per_page=${countPerPage}&page=${pageStr}`;
-  return fetch(dummyUrl).then((res) => {
-    // ダミーデータを返す
-    if (page > pageLimit) return [];
-    const blogs: Blog[] = Array.from(new Array(countPerPage)).map((_, i) => {
-      const id = (page - 1) * countPerPage + i + 1;
-      return {
-        id: id,
-        title: `${id}. This is a header`,
-        contents:
-          "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
-        publishedAt: "2022/7/11",
-      };
-    });
-    return blogs;
+  if (page > pageLimit) return [];
+  // 1秒待ってダミーデータを返す
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const blogs: Blog[] = Array.from(new Array(countPerPage)).map((_, i) => {
+    const id = (page - 1) * countPerPage + i + 1;
+    return {
+      id: id,
+      title: `${id}. This is a header`,
+      contents:
+        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+      publishedAt: "2022/7/11",
+    };
   });
+  return blogs;
 };
 
 export const usePaginateBlogs = () => {
