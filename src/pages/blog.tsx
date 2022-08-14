@@ -5,39 +5,40 @@ import React from "react";
 import { Blog } from "types";
 import InfiniteScroll from "react-infinite-scroller";
 import { usePaginateBlogs } from "lib/swr/usePaginageBlogs";
+import { Center, Loader, Text } from "@mantine/core";
 
-type Props = {
-  items: Blog[];
-};
-
-const BlogPage: NextPage<Props> = ({ items }) => {
+const BlogPage: NextPage = () => {
   const { blogs, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateBlogs();
 
-  // const loadMore = () => {
-  //   setSize(size + 1);
-  // };
+  const loadMore = () => {
+    if (!isLoadingMore && !isReachingEnd) {
+      setSize(size + 1);
+    }
+  };
+
+  if (error) {
+    return (
+      <Center>
+        <Text color="red">Failed to get blog articles.</Text>
+      </Center>
+    );
+  }
 
   return (
     <Layout>
-      <button disabled={false} onClick={() => setSize(size + 1)}>
-        {isLoadingMore ? "Loading..." : isReachingEnd ? "No more posts" : "Load more"}
-      </button>
-      <Blogs blogs={blogs} isAll={true} />
-      {/* <InfiniteScroll
+      <InfiniteScroll
         pageStart={0}
         loadMore={loadMore}
         hasMore={!isReachingEnd}
+        threshold={500}
         loader={
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
+          <Center key={"loading"} mt={24}>
+            <Loader />
+          </Center>
         }
       >
-        <button disabled={false} onClick={() => setSize(size + 1)}>
-          {isLoadingMore ? "Loading..." : isReachingEnd ? "No more posts" : "Load more"}
-        </button>
         <Blogs blogs={blogs} isAll={true} />
-      </InfiniteScroll> */}
+      </InfiniteScroll>
     </Layout>
   );
 };
