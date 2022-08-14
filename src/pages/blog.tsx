@@ -3,15 +3,41 @@ import { Layout } from "components/templates/Layout";
 import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import { Blog } from "types";
+import InfiniteScroll from "react-infinite-scroller";
+import { usePaginateBlogs } from "lib/swr/usePaginageBlogs";
 
 type Props = {
-  blogs: Blog[];
+  items: Blog[];
 };
 
-const BlogPage: NextPage<Props> = ({ blogs }) => {
+const BlogPage: NextPage<Props> = ({ items }) => {
+  const { blogs, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateBlogs();
+
+  // const loadMore = () => {
+  //   setSize(size + 1);
+  // };
+
   return (
     <Layout>
+      <button disabled={false} onClick={() => setSize(size + 1)}>
+        {isLoadingMore ? "Loading..." : isReachingEnd ? "No more posts" : "Load more"}
+      </button>
       <Blogs blogs={blogs} isAll={true} />
+      {/* <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMore}
+        hasMore={!isReachingEnd}
+        loader={
+          <div className="loader" key={0}>
+            Loading ...
+          </div>
+        }
+      >
+        <button disabled={false} onClick={() => setSize(size + 1)}>
+          {isLoadingMore ? "Loading..." : isReachingEnd ? "No more posts" : "Load more"}
+        </button>
+        <Blogs blogs={blogs} isAll={true} />
+      </InfiniteScroll> */}
     </Layout>
   );
 };
@@ -28,7 +54,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: {
-      blogs: blogs,
+      items: blogs,
     },
     revalidate: 60,
   };
