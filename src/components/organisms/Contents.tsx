@@ -20,6 +20,7 @@ const blogs: Blog[] = Array.from(new Array(10)).map((_, i) => ({
 const portfolios: Portfolio[] = Array.from(new Array(30)).map((_, i) => ({
   id: i + 1,
   title: "IT KINGDOM",
+  cover: "https://picsum.photos/315/184",
   description:
     "当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。",
   startAt: "2021/10/11",
