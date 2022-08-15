@@ -1,4 +1,12 @@
-import { createStyles, Text, Header as MantineHeader, Group, Burger, Paper } from "@mantine/core";
+import {
+  createStyles,
+  Text,
+  Header as MantineHeader,
+  Group,
+  Burger,
+  Drawer,
+  Stack,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NextLink from "next/link";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
@@ -9,25 +17,6 @@ import { ColorSchemeButton } from "components/atoms/ColorSchemeButton";
 const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
-  dropdown: {
-    position: "absolute",
-    top: HEADER_HEIGHT,
-    left: 0,
-    right: 0,
-    zIndex: 0,
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
-    borderTopWidth: 0,
-    overflow: "hidden",
-    backgroundColor: theme.colors.pink[6],
-    height: "100%",
-
-    [theme.fn.largerThan("sm")]: {
-      display: "none",
-      borderWidth: 0,
-    },
-  },
-
   headerItemGroup: {
     display: "flex",
     justifyContent: "space-between",
@@ -36,21 +25,9 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
   },
 
-  burger: {
-    [theme.fn.largerThan("md")]: {
-      display: "none",
-    },
-  },
-
   link: {
     borderRadius: theme.radius.sm,
     cursor: "pointer",
-
-    [theme.fn.smallerThan("md")]: {
-      borderRadius: 0,
-      padding: theme.spacing.md,
-      color: theme.white,
-    },
   },
 }));
 
@@ -79,7 +56,6 @@ export const Header: React.FC = () => {
   const paddingX = isDesktop ? 224 : 16;
   const theme = useMantineTheme();
   const textColor = useTextColor();
-  const backgroundColor = useBackgroundColor();
 
   const items = links.map((link) => (
     <NextLink key={link.label} href={link.link}>
@@ -89,48 +65,59 @@ export const Header: React.FC = () => {
     </NextLink>
   ));
 
-  return (
-    <MantineHeader
-      height={HEADER_HEIGHT}
-      px={paddingX}
-      withBorder={false}
-      style={{
-        backgroundColor: opened ? theme.colors.pink[6] : backgroundColor,
-        border: 0,
-        zIndex: 1,
-      }}
-    >
-      <Group
-        position="apart"
-        className={classes.headerItemGroup}
-        color={opened ? theme.colors.pink[6] : theme.white}
-      >
-        {isDesktop || (
-          <Burger
-            opened={opened}
-            color={opened ? theme.white : textColor}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-            style={{ zIndex: 1 }}
-          />
-        )}
+  const burger = (
+    <Burger opened={opened} color={opened ? theme.white : textColor} onClick={toggle} size="sm" />
+  );
 
-        {opened || (
+  return (
+    <>
+      <Drawer
+        opened={opened}
+        onClose={() => close()}
+        withCloseButton={false}
+        size="xl"
+        title={burger}
+        styles={(theme) => ({
+          header: {
+            paddingLeft: paddingX,
+            height: `${HEADER_HEIGHT}px`,
+            marginBottom: 0,
+          },
+          drawer: {
+            backgroundColor: theme.colors.pink[6],
+            color: theme.white,
+          },
+        })}
+      >
+        <Stack spacing={16} pl={24}>
+          {items}
+        </Stack>
+      </Drawer>
+
+      <MantineHeader
+        height={HEADER_HEIGHT}
+        px={paddingX}
+        withBorder={false}
+        style={{
+          border: 0,
+          zIndex: 1,
+        }}
+      >
+        <Group position="apart" className={classes.headerItemGroup} color={theme.white}>
+          {isDesktop || burger}
+
           <NextLink href={"/"} passHref>
             <Text size={18} weight={700} component="a">
               Lily IT University
             </Text>
           </NextLink>
-        )}
 
-        <Group spacing={16}>
-          {isDesktop && items}
-          <ColorSchemeButton shouldDisplay={!opened} />
+          <Group spacing={16}>
+            {isDesktop && items}
+            <ColorSchemeButton />
+          </Group>
         </Group>
-
-        {opened && <Paper className={classes.dropdown}>{items}</Paper>}
-      </Group>
-    </MantineHeader>
+      </MantineHeader>
+    </>
   );
 };
