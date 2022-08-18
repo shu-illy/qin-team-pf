@@ -13,6 +13,7 @@ import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import { useMantineTheme } from "@mantine/core";
 import { useTextColor, useBackgroundColor } from "lib/mantine";
 import { ColorSchemeButton } from "components/atoms/ColorSchemeButton";
+import { FC } from "react";
 
 const HEADER_HEIGHT = 60;
 
@@ -31,7 +32,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   const links = [
     {
       link: "/about",

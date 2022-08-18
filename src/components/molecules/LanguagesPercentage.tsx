@@ -1,13 +1,13 @@
 import { Group, Progress, Space, Stack, Text, useMantineTheme } from "@mantine/core";
 import { languageColors } from "lib/github/languageColors";
-import React from "react";
+import React, { FC } from "react";
 import { Languages } from "types";
 
 type Props = {
   languages: Languages;
 };
 
-const LanguagesPercentage: React.FC<Props> = ({ languages }) => {
+const LanguagesPercentage: FC<Props> = ({ languages }) => {
   const theme = useMantineTheme();
   const totalBytes = languages
     .map((language) => language.value)

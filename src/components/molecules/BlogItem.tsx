@@ -1,5 +1,5 @@
 import { Blog } from "types";
-import React from "react";
+import React, { FC } from "react";
 import { Stack, Text, useMantineTheme } from "@mantine/core";
 import { dateFormatted } from "lib/dayjs/ext";
 
@@ -7,7 +7,7 @@ type Props = {
   blog: Blog;
 };
 
-const BlogItem: React.FC<Props> = ({ blog }) => {
+const BlogItem: FC<Props> = ({ blog }) => {
   const theme = useMantineTheme();
   return (
     <Stack spacing={8}>

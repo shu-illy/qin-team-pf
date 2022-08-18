@@ -1,5 +1,5 @@
 import { Text, createStyles, Center } from "@mantine/core";
-import React from "react";
+import React, { FC } from "react";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -13,7 +13,7 @@ type Props = {
   height: number;
 };
 
-export const Footer: React.FC<Props> = ({ height }) => {
+export const Footer: FC<Props> = ({ height }) => {
   const { classes } = useStyles();
   return (
     <footer className={`w-full px-4 h-[${height}px] mt-[68px]`}>

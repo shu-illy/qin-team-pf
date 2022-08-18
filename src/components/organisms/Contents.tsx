@@ -1,6 +1,6 @@
 import { Container, SimpleGrid, Space } from "@mantine/core";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
-import React from "react";
+import React, { FC } from "react";
 import { Portfolios } from "components/organisms/Portfolios";
 import Blogs from "components/organisms/Blogs";
 import { Blog, GithubRepository, Language, Portfolio, Tweet } from "types";
@@ -77,7 +77,7 @@ const tweets: Tweet[] = Array.from(new Array(30)).map((_, i) => ({
   tweetedAt: "2021/10/11",
 }));
 
-export const Contents: React.FC = () => {
+export const Contents: FC = () => {
   const isDesktop = useMediaQuery("sm");
   const gap = isDesktop ? 60 : 20;
   return (

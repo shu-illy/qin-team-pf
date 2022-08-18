@@ -1,5 +1,5 @@
 import { Group, Stack, Text } from "@mantine/core";
-import React from "react";
+import React, { FC } from "react";
 import { GithubRepository } from "types";
 import RepositoryStatistic from "components/molecules/RepositoryStatistic";
 import LanguagesPercentage from "components/molecules/LanguagesPercentage";
@@ -8,7 +8,7 @@ type Props = {
   repository: GithubRepository;
 };
 
-const RepositoryItem: React.FC<Props> = ({ repository }) => {
+const RepositoryItem: FC<Props> = ({ repository }) => {
   return (
     <Stack spacing={8}>
       <Text size={18} weight="bold">

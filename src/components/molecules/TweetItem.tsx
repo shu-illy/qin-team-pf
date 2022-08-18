@@ -8,14 +8,14 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { dateFormatted } from "lib/dayjs/ext";
-import React from "react";
+import React, { FC } from "react";
 import { Tweet } from "types";
 
 type Props = {
   tweet: Tweet;
 };
 
-const TweetItem: React.FC<Props> = ({ tweet }) => {
+const TweetItem: FC<Props> = ({ tweet }) => {
   const theme = useMantineTheme();
   const tweetYear = Number(dateFormatted(tweet.tweetedAt, "YYYY"));
   const currentYear = new Date().getFullYear();

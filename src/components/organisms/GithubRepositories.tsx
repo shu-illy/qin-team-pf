@@ -2,14 +2,14 @@ import { Center, Stack } from "@mantine/core";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import RepositoryItem from "components/molecules/RepositoryItem";
-import React from "react";
+import React, { FC } from "react";
 import { GithubRepository } from "types";
 
 type Props = {
   repositories: GithubRepository[];
 };
 
-const GithubRepositories: React.FC<Props> = ({ repositories }) => {
+const GithubRepositories: FC<Props> = ({ repositories }) => {
   const items = repositories.slice(0, 5);
   return (
     <Stack spacing={0}>

@@ -1,9 +1,9 @@
 import { Container, Space, Stack, Text } from "@mantine/core";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import { useMediaQuery } from "lib/mantine";
-import React from "react";
+import React, { FC } from "react";
 
-const About: React.FC = () => {
+const About: FC = () => {
   return (
     <Stack spacing={0}>
       <SectionTitle>About</SectionTitle>

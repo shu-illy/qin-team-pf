@@ -2,7 +2,7 @@ import { Center, Stack } from "@mantine/core";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import BlogItem from "components/molecules/BlogItem";
-import React from "react";
+import React, { FC } from "react";
 import { Blog } from "types";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   isAll: boolean;
 };
 
-const Blogs: React.FC<Props> = ({ blogs, isAll }) => {
+const Blogs: FC<Props> = ({ blogs, isAll }) => {
   const items = isAll ? blogs : blogs.slice(0, 5);
   return (
     <Stack spacing={0}>

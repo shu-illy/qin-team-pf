@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Header } from "components/organisms/Header";
 import { TitleArea } from "components/organisms/TitleArea";
 import { Footer } from "components/organisms/Footer";
@@ -12,7 +12,7 @@ type Props = {
   showTitleArea?: boolean;
 };
 
-export const Layout: React.FC<Props> = ({ children, showTitleArea = false }) => {
+export const Layout: FC<Props> = ({ children, showTitleArea = false }) => {
   const isDesktop = useMediaQuery("sm");
   const paddingX = isDesktop ? 240 : 16;
   return (

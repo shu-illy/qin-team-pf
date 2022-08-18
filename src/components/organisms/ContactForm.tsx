@@ -3,9 +3,9 @@ import { useForm } from "@mantine/form";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import { Button } from "lib/mantine";
 import { useIsDark } from "lib/mantine/useIsDark";
-import React from "react";
+import React, { FC } from "react";
 
-const ContactForm: React.FC = () => {
+const ContactForm: FC = () => {
   const form = useForm({
     initialValues: {
       name: "",

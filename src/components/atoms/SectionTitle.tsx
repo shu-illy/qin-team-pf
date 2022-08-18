@@ -1,11 +1,11 @@
 import { Divider, Text } from "@mantine/core";
-import React from "react";
+import React, { FC } from "react";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export const SectionTitle: React.FC<Props> = ({ children }) => {
+export const SectionTitle: FC<Props> = ({ children }) => {
   return (
     <>
       <Text size={26} component="h2" mt={40} mb={0}>

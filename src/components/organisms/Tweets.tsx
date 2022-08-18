@@ -2,14 +2,14 @@ import { Center, Space, Stack } from "@mantine/core";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import TweetItem from "components/molecules/TweetItem";
-import React from "react";
+import React, { FC } from "react";
 import { Tweet } from "types";
 
 type Props = {
   tweets: Tweet[];
 };
 
-const Tweets: React.FC<Props> = ({ tweets }) => {
+const Tweets: FC<Props> = ({ tweets }) => {
   const items = tweets.slice(0, 3);
   return (
     <Stack spacing={0}>

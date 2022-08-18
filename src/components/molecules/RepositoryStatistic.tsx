@@ -1,5 +1,5 @@
 import { IconStar, IconGitFork } from "@tabler/icons";
-import React from "react";
+import React, { FC } from "react";
 import { Group, Text, useMantineTheme } from "@mantine/core";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   value: number;
 };
 
-const RepositoryStatistic: React.FC<Props> = ({ name, value }) => {
+const RepositoryStatistic: FC<Props> = ({ name, value }) => {
   const theme = useMantineTheme();
   const color = theme.colors.dark[2];
   const stroke = 1.5;

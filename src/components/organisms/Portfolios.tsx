@@ -3,7 +3,7 @@ import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import PortfolioItem from "components/molecules/PortfolioItem";
 import { useMediaQuery } from "lib/mantine";
-import React from "react";
+import React, { FC } from "react";
 import { Portfolio } from "types";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   isAll: boolean;
 };
 
-export const Portfolios: React.FC<Props> = ({ portfolios, isAll }) => {
+export const Portfolios: FC<Props> = ({ portfolios, isAll }) => {
   const isDesktop = useMediaQuery("sm");
   const items = isAll ? portfolios : portfolios.slice(0, 6);
   return (
