@@ -17,9 +17,11 @@ const BlogPage: NextPage = () => {
 
   if (error) {
     return (
-      <Center>
-        <Text color="red">Failed to get blog articles.</Text>
-      </Center>
+      <Layout>
+        <Center>
+          <Text color="red">Failed to get blog articles.</Text>
+        </Center>
+      </Layout>
     );
   }
 
