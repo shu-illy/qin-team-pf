@@ -13,3 +13,7 @@ export const textToHtml = (text: string): string => {
   // TODO 正規表現でハッシュタグ、リプ抽出してaタグに変換する
   return convertedText;
 };
+
+export const htmlToText = (html: string): string => {
+  return html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
+};

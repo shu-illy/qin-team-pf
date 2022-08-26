@@ -1,6 +1,9 @@
 export type Blog = {
-  id: number;
+  id: string;
   title: string;
-  contents: string;
-  publishedAt: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  revisedAt?: string;
 };
