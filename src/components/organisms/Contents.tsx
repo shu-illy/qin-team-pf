@@ -9,10 +9,12 @@ import Tweets from "components/organisms/Tweets";
 
 // TODO ダミー用データ
 const blogs: Blog[] = Array.from(new Array(10)).map((_, i) => ({
-  id: i + 1,
+  id: `${i + 1}`,
   title: "This is a header",
-  contents:
+  content:
     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+  createdAt: "2022/7/11",
+  updatedAt: "2022/7/11",
   publishedAt: "2022/7/11",
 }));
 
