@@ -1,22 +1,11 @@
-import { Container, SimpleGrid, Space } from "@mantine/core";
+import { SimpleGrid, Space } from "@mantine/core";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import React, { FC } from "react";
 import { Portfolios } from "components/organisms/Portfolios";
-import Blogs from "components/organisms/Blogs";
-import { Blog, GithubRepository, Language, Portfolio, Tweet } from "types";
+import { GithubRepository, Portfolio, Tweet } from "types";
 import GithubRepositories from "components/organisms/GithubRepositories";
 import Tweets from "components/organisms/Tweets";
-
-// TODO ダミー用データ
-const blogs: Blog[] = Array.from(new Array(10)).map((_, i) => ({
-  id: `${i + 1}`,
-  title: "This is a header",
-  content:
-    "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
-  createdAt: "2022/7/11",
-  updatedAt: "2022/7/11",
-  publishedAt: "2022/7/11",
-}));
+import TopBlogs from "components/organisms/TopBlogs";
 
 // TODO ダミー用データ
 const portfolios: Portfolio[] = Array.from(new Array(30)).map((_, i) => ({
@@ -84,7 +73,7 @@ export const Contents: FC = () => {
   const gap = isDesktop ? 60 : 20;
   return (
     <>
-      <Blogs blogs={blogs} isAll={false} />
+      <TopBlogs />
       <Space h={gap} />
       <Portfolios isAll={false} portfolios={portfolios} />
       <Space h={gap} />
