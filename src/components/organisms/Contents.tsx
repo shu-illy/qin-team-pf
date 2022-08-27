@@ -9,13 +9,20 @@ import TopBlogs from "components/organisms/TopBlogs";
 
 // TODO ダミー用データ
 const portfolios: Portfolio[] = Array.from(new Array(30)).map((_, i) => ({
-  id: i + 1,
+  id: `${i + 1}`,
   title: "IT KINGDOM",
-  cover: "https://picsum.photos/315/184",
+  thumbnail: {
+    url: "https://picsum.photos/315/184",
+    height: 184,
+    width: 314,
+  },
   description:
     "当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。",
   startAt: "2021/10/11",
   endAt: "2021/12/4",
+  createdAt: "2022/5/4",
+  publishedAt: "2022/5/4",
+  updatedAt: "2022/5/4",
 }));
 
 // TODO ダミー用データ

@@ -3,5 +3,6 @@ import { Portfolio } from "types/Portfolio";
 import { GithubRepository, Languages } from "types/GithubRepository";
 import { Language } from "types/Language";
 import { Tweet } from "types/Tweet";
+import { MicroCmsPicture } from "types/MicroCmsPicture";
 
-export type { Blog, Portfolio, GithubRepository, Language, Languages, Tweet };
+export type { Blog, Portfolio, GithubRepository, Language, Languages, Tweet, MicroCmsPicture };
