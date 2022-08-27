@@ -52,7 +52,7 @@ const BlogPage: NextPage<Props> = ({ blogs }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await microCmsClient.get({
-    endpoint: "blogs",
+    endpoint: "blog",
     queries: { orders: "-publishedAt" },
   });
 
