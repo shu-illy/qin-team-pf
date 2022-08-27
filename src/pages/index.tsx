@@ -34,7 +34,7 @@ const Home: NextPage<Props> = (props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await microCmsClient.get({
-    endpoint: "blogs",
+    endpoint: "blog",
     queries: { orders: "-publishedAt" },
   });
 

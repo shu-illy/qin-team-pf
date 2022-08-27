@@ -10,7 +10,7 @@ const fetcher = async (pageStr: string) => {
   const page = Number(pageStr);
   const countPerPage = 10;
   const data = await microCmsClient.get({
-    endpoint: "blogs",
+    endpoint: "blog",
     queries: { orders: "-publishedAt", limit: countPerPage, offset: countPerPage * (page - 1) },
   });
   return data.contents;
