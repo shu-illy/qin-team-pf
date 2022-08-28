@@ -1,6 +1,5 @@
-import { Container, Space, Stack, Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { SectionTitle } from "components/atoms/SectionTitle";
-import { useMediaQuery } from "lib/mantine";
 import React, { FC } from "react";
 
 const About: FC = () => {
@@ -11,7 +10,7 @@ const About: FC = () => {
         Lightsound Shimabu
       </Text>
       <Text>
-        ITエンジニアYouTuber。神戸大学経営学部卒。未経験から独学でプログラミングを勉強し、新卒でヤフーに入社。2019年に株式会社GameHintを創業。
+        Webエンジニア。京都大学工学部・京都大学大学院工学研究科卒。新卒で大手重工メーカーに入社し、2021年にWebエンジニアにキャリアチェンジ。
       </Text>
     </Stack>
   );
