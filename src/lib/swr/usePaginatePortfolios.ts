@@ -6,11 +6,12 @@ import { Portfolio } from "types";
 // https://swr.vercel.app/ja/examples/infinite-loading
 // https://www.ibrahima-ndaw.com/blog/data-fetching-in-nextjs-using-useswr/
 
-const fetcher = async (pageStr: string) => {
+const fetcher = async (key: string) => {
+  const [endpoint, pageStr] = key.split("/");
   const page = Number(pageStr);
   const countPerPage = 9;
   const data = await microCmsClient.get({
-    endpoint: "portfolio",
+    endpoint,
     queries: { orders: "-publishedAt", limit: countPerPage, offset: countPerPage * (page - 1) },
   });
   return data.contents;
@@ -18,7 +19,7 @@ const fetcher = async (pageStr: string) => {
 
 export const usePaginatePortfolios = (initialData: Portfolio[]) => {
   const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
-    (index) => `${index + 1}`,
+    (index) => `portfolio/${index + 1}`,
     fetcher,
     { fallbackData: initialData }
   );

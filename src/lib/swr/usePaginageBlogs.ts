@@ -6,11 +6,12 @@ import { Blog } from "types";
 // https://swr.vercel.app/ja/examples/infinite-loading
 // https://www.ibrahima-ndaw.com/blog/data-fetching-in-nextjs-using-useswr/
 
-const fetcher = async (pageStr: string) => {
+const fetcher = async (key: string) => {
+  const [endpoint, pageStr] = key.split("/");
   const page = Number(pageStr);
   const countPerPage = 10;
   const data = await microCmsClient.get({
-    endpoint: "blog",
+    endpoint,
     queries: { orders: "-publishedAt", limit: countPerPage, offset: countPerPage * (page - 1) },
   });
   return data.contents;
@@ -18,7 +19,7 @@ const fetcher = async (pageStr: string) => {
 
 export const usePaginateBlogs = (initialData: Blog[]) => {
   const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
-    (index) => `${index + 1}`,
+    (index) => `blog/${index + 1}`,
     fetcher,
     { fallbackData: initialData }
   );
