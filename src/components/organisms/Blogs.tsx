@@ -3,7 +3,9 @@ import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import BlogItem from "components/molecules/BlogItem";
 import React, { FC } from "react";
+import NextLink from "next/link";
 import { Blog } from "types";
+import { pagesPath } from "utils/$path";
 
 type Props = {
   blogs: Blog[];
@@ -20,9 +22,11 @@ const Blogs: FC<Props> = ({ blogs, isAll }) => {
           <BlogItem key={blog.id} blog={blog} />
         ))}
         {isAll || (
-          <Center mt={24}>
-            <SectionBottomButton label="View All" />
-          </Center>
+          <NextLink href={pagesPath.blog.$url()} passHref>
+            <Center mt={24}>
+              <SectionBottomButton label="View All" />
+            </Center>
+          </NextLink>
         )}
       </Stack>
     </Stack>
