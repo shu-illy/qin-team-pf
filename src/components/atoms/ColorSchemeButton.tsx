@@ -9,8 +9,7 @@ export const ColorSchemeButton: FC = () => {
   return (
     <ActionIcon
       variant="outline"
-      // onClick={() => toggleColorScheme()}
-      onClick={() => {}}
+      onClick={() => toggleColorScheme()}
       title="Toggle color scheme"
       sx={{
         "&:not(:disabled):active": { transform: "none" },
