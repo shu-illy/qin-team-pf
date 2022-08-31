@@ -12,7 +12,7 @@ type Props = {
   blogs: Blog[];
 };
 
-const BlogPage: NextPage<Props> = ({ blogs }) => {
+const BlogIndexPage: NextPage<Props> = ({ blogs }) => {
   const { items, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateBlogs(blogs);
 
   const loadMore = () => {
@@ -65,4 +65,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default BlogPage;
+export default BlogIndexPage;
