@@ -43,7 +43,6 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
       endpoint: "blog",
       contentId: id,
     });
-
     return {
       props: {
         blog: blog,

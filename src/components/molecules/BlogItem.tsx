@@ -14,7 +14,7 @@ const BlogItem: FC<Props> = ({ blog }) => {
   const theme = useMantineTheme();
   return (
     <Stack spacing={8}>
-      <NextLink href={pagesPath.blog._id(blog.id).$url()} passHref>
+      <NextLink href={pagesPath.blog._id(blog.id).$url()} passHref prefetch={false}>
         <Text my={0} component="h3" size={22} className="cursor-pointer">
           {blog.title}
         </Text>
