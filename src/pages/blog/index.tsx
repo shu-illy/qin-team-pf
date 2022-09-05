@@ -1,13 +1,19 @@
 import Blogs from "components/organisms/Blogs";
 import { Layout } from "components/templates/Layout";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { usePaginateBlogs } from "lib/swr/usePaginageBlogs";
 import { Center, Loader, Text } from "@mantine/core";
+import { Blog } from "types";
+import { microCmsClient } from "lib/microcms/client";
 
-const BlogPage: NextPage = () => {
-  const { blogs, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateBlogs();
+type Props = {
+  blogs: Blog[];
+};
+
+const BlogIndexPage: NextPage<Props> = ({ blogs }) => {
+  const { items, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateBlogs(blogs);
 
   const loadMore = () => {
     if (!isLoadingMore && !isReachingEnd) {
@@ -31,17 +37,32 @@ const BlogPage: NextPage = () => {
         pageStart={0}
         loadMore={loadMore}
         hasMore={!isReachingEnd}
-        threshold={500}
+        threshold={100}
         loader={
           <Center key={"loading"} mt={24}>
             <Loader />
           </Center>
         }
       >
-        <Blogs blogs={blogs} isAll={true} />
+        <Blogs blogs={items} isAll={true} />
       </InfiniteScroll>
     </Layout>
   );
 };
 
-export default BlogPage;
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await microCmsClient.get({
+    endpoint: "blog",
+    queries: { orders: "-publishedAt" },
+  });
+
+  const props: Props = {
+    blogs: data.contents,
+  };
+
+  return {
+    props: props,
+  };
+};
+
+export default BlogIndexPage;

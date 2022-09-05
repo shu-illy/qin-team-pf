@@ -4,7 +4,9 @@ import { SectionTitle } from "components/atoms/SectionTitle";
 import PortfolioItem from "components/molecules/PortfolioItem";
 import { useMediaQuery } from "lib/mantine";
 import React, { FC } from "react";
+import NextLink from "next/link";
 import { Portfolio } from "types";
+import { pagesPath } from "utils/$path";
 
 type Props = {
   portfolios: Portfolio[];
@@ -26,9 +28,11 @@ export const Portfolios: FC<Props> = ({ portfolios, isAll }) => {
       </Grid>
       <Space h={34} />
       {isAll || (
-        <Center>
-          <SectionBottomButton label="View All" />
-        </Center>
+        <NextLink href={pagesPath.portfolio.$url()} passHref>
+          <Center>
+            <SectionBottomButton label="View All" />
+          </Center>
+        </NextLink>
       )}
     </Stack>
   );

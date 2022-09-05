@@ -1,4 +1,4 @@
-import { textToHtml } from "utils/textToHtml";
+import { textToHtml } from "utils/htmlConverter";
 import {
   Avatar,
   Group,

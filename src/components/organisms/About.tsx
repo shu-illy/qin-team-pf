@@ -7,7 +7,7 @@ const About: FC = () => {
     <Stack spacing={0}>
       <SectionTitle>About</SectionTitle>
       <Text size={22} mt={0} mb={24} component="h3">
-        Lightsound Shimabu
+        Lily
       </Text>
       <Text>
         Webエンジニア。京都大学工学部・京都大学大学院工学研究科卒。新卒で大手重工メーカーに入社し、2021年にWebエンジニアにキャリアチェンジ。

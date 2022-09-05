@@ -14,6 +14,7 @@ import { useMantineTheme } from "@mantine/core";
 import { useTextColor, useBackgroundColor } from "lib/mantine";
 import { ColorSchemeButton } from "components/atoms/ColorSchemeButton";
 import { FC } from "react";
+import { pagesPath } from "utils/$path";
 
 const HEADER_HEIGHT = 60;
 
@@ -35,19 +36,19 @@ const useStyles = createStyles((theme) => ({
 export const Header: FC = () => {
   const links = [
     {
-      link: "/about",
+      link: pagesPath.about.$url(),
       label: "About",
     },
     {
-      link: "/blog",
+      link: pagesPath.blog.$url(),
       label: "Blog",
     },
     {
-      link: "/portfolio",
+      link: pagesPath.portfolio.$url(),
       label: "Portfolio",
     },
     {
-      link: "/contact",
+      link: pagesPath.contact.$url(),
       label: "Contact",
     },
   ];
