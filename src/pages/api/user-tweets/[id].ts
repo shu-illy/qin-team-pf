@@ -53,6 +53,70 @@ export default async function handler(
       "tweet.fields": ["author_id", "created_at"],
       "user.fields": ["name", "profile_image_url", "username"],
     });
+    const errors = twitterResponse.errors;
+    // return res.status(200).json([
+    //   {
+    //     id: "testId",
+    //     userName: "リリー",
+    //     userId: "lily_otk",
+    //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+    //     tweet: "5個目",
+    //     tweetedAt: "2021/10/11",
+    //   },
+    // ]);
+    if (errors !== undefined) {
+      // return res.status(200).json([
+      //   {
+      //     id: "testId",
+      //     userName: "リリー",
+      //     userId: "lily_otk",
+      //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      //     tweet: "エラーハンドリング",
+      //     tweetedAt: "2021/10/11",
+      //   },
+      // ]);
+      return res.status(errors![0].status!).json({
+        error: {
+          title: errors![0].title,
+          detail: errors![0].detail,
+        },
+      });
+    }
+    const data = twitterResponse.data;
+    // return res.status(200).json([
+    //   {
+    //     id: "testId",
+    //     userName: "リリー",
+    //     userId: "lily_otk",
+    //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+    //     tweet: "6個目",
+    //     tweetedAt: "2021/10/11",
+    //   },
+    // ]);
+    const user = twitterResponse.includes!.users![0];
+    // return res.status(200).json([
+    //   {
+    //     id: "testId",
+    //     userName: "リリー",
+    //     userId: "lily_otk",
+    //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+    //     tweet: "7個目",
+    //     tweetedAt: "2021/10/11",
+    //   },
+    // ]);
+    const tweets = data?.map((element) => {
+      const tweet: Tweet = {
+        id: element.id,
+        userName: user.name,
+        userId: user.username,
+        userIcon: user.profile_image_url!,
+        tweet: element.text,
+        tweetedAt: element.created_at!,
+      };
+      return tweet;
+    });
+
+    res.status(200).json(tweets ?? []);
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -63,78 +127,14 @@ export default async function handler(
     });
   }
 
-  return res.status(200).json([
-    {
-      id: "testId",
-      userName: "リリー",
-      userId: "lily_otk",
-      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-      tweet: "4個目",
-      tweetedAt: "2021/10/11",
-    },
-  ]);
-  // const errors = twitterResponse.errors;
   // return res.status(200).json([
   //   {
   //     id: "testId",
   //     userName: "リリー",
   //     userId: "lily_otk",
   //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  //     tweet: "5個目",
+  //     tweet: "4個目",
   //     tweetedAt: "2021/10/11",
   //   },
   // ]);
-  // if (errors !== undefined) {
-  //   return res.status(200).json([
-  //     {
-  //       id: "testId",
-  //       userName: "リリー",
-  //       userId: "lily_otk",
-  //       userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  //       tweet: "エラーハンドリング",
-  //       tweetedAt: "2021/10/11",
-  //     },
-  //   ]);
-  //   return res.status(errors![0].status!).json({
-  //     error: {
-  //       title: errors![0].title,
-  //       detail: errors![0].detail,
-  //     },
-  //   });
-  // }
-  // const data = twitterResponse.data;
-  // return res.status(200).json([
-  //   {
-  //     id: "testId",
-  //     userName: "リリー",
-  //     userId: "lily_otk",
-  //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  //     tweet: "6個目",
-  //     tweetedAt: "2021/10/11",
-  //   },
-  // ]);
-  // const user = twitterResponse.includes!.users![0];
-  // return res.status(200).json([
-  //   {
-  //     id: "testId",
-  //     userName: "リリー",
-  //     userId: "lily_otk",
-  //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  //     tweet: "7個目",
-  //     tweetedAt: "2021/10/11",
-  //   },
-  // ]);
-  // const tweets = data?.map((element) => {
-  //   const tweet: Tweet = {
-  //     id: element.id,
-  //     userName: user.name,
-  //     userId: user.username,
-  //     userIcon: user.profile_image_url!,
-  //     tweet: element.text,
-  //     tweetedAt: element.created_at!,
-  //   };
-  //   return tweet;
-  // });
-
-  // res.status(200).json(tweets ?? []);
 }
