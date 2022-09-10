@@ -46,6 +46,7 @@ export default async function handler(
   //   },
   // ]);
   try {
+    console.log(userId);
     const twitterResponse = await twitterClient.tweets.usersIdTweets(userId, {
       expansions: ["author_id"],
       "tweet.fields": ["author_id", "created_at"],
