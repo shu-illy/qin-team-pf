@@ -15,11 +15,13 @@ export default async function handler(
     return res.status(404);
   }
   const userId = typeof req.query.id === "string" ? req.query.id : req.query.id![0];
+  console.log("userId", userId);
   const twitterResponse = await twitterClient.tweets.usersIdTweets(userId, {
     expansions: ["author_id"],
     "tweet.fields": ["author_id", "created_at"],
     "user.fields": ["name", "profile_image_url", "username"],
   });
+  console.log("twitterResponse", twitterResponse);
   const errors = twitterResponse.errors;
   if (errors !== undefined) {
     return res.status(errors![0].status!).json({
