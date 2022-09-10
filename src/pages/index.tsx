@@ -7,6 +7,8 @@ import Blogs from "components/organisms/Blogs";
 import { Portfolios } from "components/organisms/Portfolios";
 import Tweets from "components/organisms/Tweets";
 import GithubRepositories from "components/organisms/GithubRepositories";
+import useSWR from "swr";
+import axios from "axios";
 
 type Props = {
   blogs: Blog[];
@@ -15,7 +17,18 @@ type Props = {
   tweets: Tweet[];
 };
 
+const twitterFetcher = async (url: string): Promise<Tweet[]> => {
+  const res = await axios.get(url);
+  return res.data;
+};
+
 const Home: NextPage<Props> = (props) => {
+  const myTwitterUserId = process.env.MY_TWITTER_USER_ID as string;
+  const twitterResult = useSWR(`/api/user-tweets/${myTwitterUserId}`, twitterFetcher, {
+    fallbackData: props.tweets,
+  });
+  const tweets = twitterResult.data ?? [];
+
   return (
     <Layout showTitleArea>
       <Contents
@@ -52,17 +65,6 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default Home;
-
-// TODO ダミー用データ
-const tweets: Tweet[] = Array.from(new Array(30)).map((_, i) => ({
-  id: i + 1,
-  userName: "リリー",
-  userId: "lily_otk",
-  userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  tweet:
-    "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\nhttps://www.noway-form.com/ja",
-  tweetedAt: "2021/10/11",
-}));
 
 // TODO ダミー用データ
 const repositories: GithubRepository[] = Array.from(new Array(30)).map((_, i) => ({
