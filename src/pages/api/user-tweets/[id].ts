@@ -35,16 +35,16 @@ export default async function handler(
   //   },
   // ]);
   const userId = typeof req.query.id === "string" ? req.query.id : req.query.id![0];
-  // return res.status(200).json([
-  //   {
-  //     id: "testId",
-  //     userName: "リリー",
-  //     userId: "lily_otk",
-  //     userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  //     tweet: "3個目",
-  //     tweetedAt: "2021/10/11",
-  //   },
-  // ]);
+  return res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "3個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const twitterResponse = await twitterClient.tweets.usersIdTweets(userId, {
     expansions: ["author_id"],
     "tweet.fields": ["author_id", "created_at"],
