@@ -11,6 +11,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Tweet[] | { error?: Error }>
 ) {
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet:
+        "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\nhttps://www.noway-form.com/ja",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   if (req.query.id === undefined) {
     return res.status(404);
   }
