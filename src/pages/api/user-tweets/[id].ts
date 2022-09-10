@@ -17,24 +17,71 @@ export default async function handler(
       userName: "リリー",
       userId: "lily_otk",
       userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-      tweet:
-        "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\nhttps://www.noway-form.com/ja",
+      tweet: "1個目",
       tweetedAt: "2021/10/11",
     },
   ]);
   if (req.query.id === undefined) {
     return res.status(404);
   }
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "2個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const userId = typeof req.query.id === "string" ? req.query.id : req.query.id![0];
-  console.log("userId", userId);
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "3個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const twitterResponse = await twitterClient.tweets.usersIdTweets(userId, {
     expansions: ["author_id"],
     "tweet.fields": ["author_id", "created_at"],
     "user.fields": ["name", "profile_image_url", "username"],
   });
-  console.log("twitterResponse", twitterResponse);
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "4個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const errors = twitterResponse.errors;
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "5個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   if (errors !== undefined) {
+    res.status(200).json([
+      {
+        id: "testId",
+        userName: "リリー",
+        userId: "lily_otk",
+        userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+        tweet: "エラーハンドリング",
+        tweetedAt: "2021/10/11",
+      },
+    ]);
     return res.status(errors![0].status!).json({
       error: {
         title: errors![0].title,
@@ -43,7 +90,27 @@ export default async function handler(
     });
   }
   const data = twitterResponse.data;
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "6個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const user = twitterResponse.includes!.users![0];
+  res.status(200).json([
+    {
+      id: "testId",
+      userName: "リリー",
+      userId: "lily_otk",
+      userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
+      tweet: "7個目",
+      tweetedAt: "2021/10/11",
+    },
+  ]);
   const tweets = data?.map((element) => {
     const tweet: Tweet = {
       id: element.id,
