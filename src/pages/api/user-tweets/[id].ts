@@ -47,6 +47,7 @@ export default async function handler(
   // ]);
   try {
     console.log(userId);
+    console.log("token:", process.env.NEXT_PUBLIC_TWITTER_BEARER_TOKEN);
     const twitterResponse = await twitterClient.tweets.usersIdTweets(userId, {
       expansions: ["author_id"],
       "tweet.fields": ["author_id", "created_at"],
