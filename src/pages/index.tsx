@@ -19,6 +19,7 @@ type Props = {
 
 const twitterFetcher = async (url: string): Promise<Tweet[]> => {
   const res = await axios.get(url);
+  console.log(res);
   return res.data;
 };
 
