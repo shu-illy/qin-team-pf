@@ -1,5 +1,6 @@
 import { textToHtml } from "utils/htmlConverter";
 import {
+  Anchor,
   Avatar,
   Group,
   Stack,
@@ -25,7 +26,7 @@ const TweetItem: FC<Props> = ({ tweet }) => {
       : dateFormatted(tweet.tweetedAt, "YYYY年M月D日");
   const link = `https://twitter.com/${tweet.userId}/status/${tweet.id}`;
   return (
-    <a href={link} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+    <Anchor href={link} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
       <Group spacing={16} align="start" noWrap={true} py={16} pr={16}>
         <Avatar src={tweet.userIcon} radius="xl" />
         <Stack spacing={4}>
@@ -44,7 +45,7 @@ const TweetItem: FC<Props> = ({ tweet }) => {
           </TypographyStylesProvider>
         </Stack>
       </Group>
-    </a>
+    </Anchor>
   );
 };
 
