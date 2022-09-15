@@ -7,8 +7,8 @@ import Blogs from "components/organisms/Blogs";
 import { Portfolios } from "components/organisms/Portfolios";
 import Tweets from "components/organisms/Tweets";
 import GithubRepositories from "components/organisms/GithubRepositories";
-import useSWR from "swr";
-import axios from "axios";
+import { fetchUserTweets } from "lib/twitter/client";
+import { SWRConfig } from "swr";
 
 type Props = {
   blogs: Blog[];
@@ -17,24 +17,17 @@ type Props = {
   tweets: Tweet[];
 };
 
-const twitterFetcher = async (url: string): Promise<Tweet[]> => {
-  const res = await axios.get(url);
-  return res.data;
-};
-
 const Home: NextPage<Props> = (props) => {
-  const myTwitterUserId = process.env.MY_TWITTER_USER_ID as string;
-  const twitterResult = useSWR(`/api/user-tweets/${myTwitterUserId}`, twitterFetcher, {
-    fallbackData: props.tweets,
-  });
-  const tweets = twitterResult.data ?? [];
-
   return (
     <Layout showTitleArea>
       <Contents
         blogs={<Blogs blogs={props.blogs} isAll={false} />}
         portfolios={<Portfolios isAll={false} portfolios={props.portfolios} />}
-        tweets={<Tweets tweets={tweets} />}
+        tweets={
+          <SWRConfig value={{ fallback: props.tweets }}>
+            <Tweets />
+          </SWRConfig>
+        }
         repositories={<GithubRepositories repositories={repositories} />}
       />
     </Layout>
@@ -52,11 +45,19 @@ export const getStaticProps: GetStaticProps = async () => {
     queries: { orders: "-publishedAt" },
   });
 
+  const myTwitterUserId = process.env.MY_TWITTER_USER_ID as string;
+  const twitterResponse = await fetchUserTweets(myTwitterUserId);
+  if (twitterResponse.errors !== undefined || twitterResponse.data === undefined) {
+    throw new Error("Failed to get tweets in getStaticProps");
+  }
+
+  const tweets = twitterResponse.data!;
+
   const props: Props = {
     blogs: blogData.contents,
     portfolios: portfolioData.contents,
     repositories: [],
-    tweets: [],
+    tweets: tweets,
   };
 
   return {
