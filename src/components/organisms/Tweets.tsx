@@ -1,4 +1,4 @@
-import { Center, ScrollArea, Space, Stack } from "@mantine/core";
+import { Center, Loader, ScrollArea, Space, Stack } from "@mantine/core";
 import axios from "axios";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
@@ -20,7 +20,12 @@ const Tweets: FC = () => {
 
   const { data, error } = useSWR("tweets", twitterFetcher, {});
   if (error) return <div>Failed to get data</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data)
+    return (
+      <Center>
+        <Loader />
+      </Center>
+    );
 
   return (
     <Stack spacing={0}>
