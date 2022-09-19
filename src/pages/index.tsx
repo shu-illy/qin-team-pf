@@ -7,6 +7,8 @@ import Blogs from "components/organisms/Blogs";
 import { Portfolios } from "components/organisms/Portfolios";
 import Tweets from "components/organisms/Tweets";
 import GithubRepositories from "components/organisms/GithubRepositories";
+import { fetchUserTweets } from "lib/twitter/client";
+import { SWRConfig } from "swr";
 
 type Props = {
   blogs: Blog[];
@@ -21,7 +23,11 @@ const Home: NextPage<Props> = (props) => {
       <Contents
         blogs={<Blogs blogs={props.blogs} isAll={false} />}
         portfolios={<Portfolios isAll={false} portfolios={props.portfolios} />}
-        tweets={<Tweets tweets={tweets} />}
+        tweets={
+          <SWRConfig value={{ fallback: props.tweets }}>
+            <Tweets />
+          </SWRConfig>
+        }
         repositories={<GithubRepositories repositories={repositories} />}
       />
     </Layout>
@@ -39,30 +45,28 @@ export const getStaticProps: GetStaticProps = async () => {
     queries: { orders: "-publishedAt" },
   });
 
+  const myTwitterUserId = process.env.MY_TWITTER_USER_ID as string;
+  const twitterResponse = await fetchUserTweets(myTwitterUserId);
+  if (twitterResponse.errors !== undefined || twitterResponse.data === undefined) {
+    throw new Error("Failed to get tweets in getStaticProps");
+  }
+
+  const tweets = twitterResponse.data!;
+
   const props: Props = {
     blogs: blogData.contents,
     portfolios: portfolioData.contents,
     repositories: [],
-    tweets: [],
+    tweets: tweets,
   };
 
   return {
     props: props,
+    revalidate: 600,
   };
 };
 
 export default Home;
-
-// TODO ダミー用データ
-const tweets: Tweet[] = Array.from(new Array(30)).map((_, i) => ({
-  id: i + 1,
-  userName: "リリー",
-  userId: "lily_otk",
-  userIcon: "https://secure.gravatar.com/avatar/a84921a533a2475592b065e840b92755.jpg",
-  tweet:
-    "📣 新サービス「Noway Form」をリリースしました！\n\nNoway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨\n\n試しに使っていただけると幸いです😊\nhttps://www.noway-form.com/ja",
-  tweetedAt: "2021/10/11",
-}));
 
 // TODO ダミー用データ
 const repositories: GithubRepository[] = Array.from(new Array(30)).map((_, i) => ({
