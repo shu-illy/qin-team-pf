@@ -11,7 +11,7 @@ import { fetchUserTweets } from "lib/twitter/client";
 import { SWRConfig } from "swr";
 import { ApolloProvider } from "@apollo/client";
 import { fetchRepositories, githubApolloClient } from "lib/github/client";
-import { Language } from "types";
+import { queryToRepositories } from "utils/repositoriesQueryConverter";
 
 type Props = {
   blogs: Blog[];
@@ -61,24 +61,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const tweets = twitterResponse.data!;
 
   const data = await fetchRepositories();
-  const repositories: GithubRepository[] = data.viewer.repositories.nodes!.map((repository) => {
-    return {
-      id: repository?.id ?? "",
-      name: repository?.name ?? "",
-      totalSize: repository?.languages?.totalSize ?? 0,
-      description: repository?.description ?? "",
-      forkCount: repository!.forkCount ?? 0,
-      stargazerCount: repository!.stargazerCount ?? 0,
-      languages: repository!.languages!.edges!.map((language) => {
-        const languageInfo: Language = {
-          name: language?.node.name ?? "",
-          color: language?.node.color ?? "",
-          size: language?.size ?? 0,
-        };
-        return languageInfo;
-      }),
-    };
-  });
+  const repositories = queryToRepositories(data);
 
   const props: Props = {
     blogs: blogData.contents,
