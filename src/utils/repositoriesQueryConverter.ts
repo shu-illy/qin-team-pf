@@ -7,6 +7,7 @@ export const queryToRepositories = (data: GetRepositoryLanguagesQuery): GithubRe
     name: repository?.name ?? "",
     totalSize: repository?.languages?.totalSize ?? 0,
     description: repository?.description ?? "",
+    url: repository?.url ?? "",
     forkCount: repository!.forkCount ?? 0,
     stargazerCount: repository!.stargazerCount ?? 0,
     languages: repository!.languages!.edges!.map((language) => {

@@ -9,6 +9,7 @@ export type GithubRepository = {
   name: string;
   totalSize: number;
   description: string;
+  url: string;
   stargazerCount: number;
   forkCount: number;
   languages: Language[];
