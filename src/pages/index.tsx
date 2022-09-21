@@ -9,6 +9,9 @@ import Tweets from "components/organisms/Tweets";
 import GithubRepositories from "components/organisms/GithubRepositories";
 import { fetchUserTweets } from "lib/twitter/client";
 import { SWRConfig } from "swr";
+import { ApolloProvider } from "@apollo/client";
+import { fetchRepositories, githubApolloClient } from "lib/github/client";
+import { Language } from "types";
 
 type Props = {
   blogs: Blog[];
@@ -17,18 +20,22 @@ type Props = {
   tweets: Tweet[];
 };
 
-const Home: NextPage<Props> = (props) => {
+const Home: NextPage<Props> = ({ blogs, portfolios, repositories, tweets }) => {
   return (
     <Layout showTitleArea>
       <Contents
-        blogs={<Blogs blogs={props.blogs} isAll={false} />}
-        portfolios={<Portfolios isAll={false} portfolios={props.portfolios} />}
+        blogs={<Blogs blogs={blogs} isAll={false} />}
+        portfolios={<Portfolios isAll={false} portfolios={portfolios} />}
         tweets={
-          <SWRConfig value={{ fallback: props.tweets }}>
+          <SWRConfig value={{ fallback: tweets }}>
             <Tweets />
           </SWRConfig>
         }
-        repositories={<GithubRepositories repositories={repositories} />}
+        repositories={
+          <ApolloProvider client={githubApolloClient}>
+            <GithubRepositories repositories={repositories} />
+          </ApolloProvider>
+        }
       />
     </Layout>
   );
@@ -53,10 +60,30 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const tweets = twitterResponse.data!;
 
+  const data = await fetchRepositories();
+  const repositories: GithubRepository[] = data.viewer.repositories.nodes!.map((repository) => {
+    return {
+      id: repository?.id ?? "",
+      name: repository?.name ?? "",
+      totalSize: repository?.languages?.totalSize ?? 0,
+      description: repository?.description ?? "",
+      forkCount: repository!.forkCount ?? 0,
+      stargazerCount: repository!.stargazerCount ?? 0,
+      languages: repository!.languages!.edges!.map((language) => {
+        const languageInfo: Language = {
+          name: language?.node.name ?? "",
+          color: language?.node.color ?? "",
+          size: language?.size ?? 0,
+        };
+        return languageInfo;
+      }),
+    };
+  });
+
   const props: Props = {
     blogs: blogData.contents,
     portfolios: portfolioData.contents,
-    repositories: [],
+    repositories: repositories,
     tweets: tweets,
   };
 
@@ -67,42 +94,3 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default Home;
-
-// TODO ダミー用データ
-const repositories: GithubRepository[] = Array.from(new Array(30)).map((_, i) => ({
-  id: i + 1,
-  title: "lightsound/nexst-tailwind",
-  description: "Next.js starter template.",
-  star: 117,
-  fork: 18,
-  languages: [
-    {
-      name: "TypeScript",
-      value: 1500,
-    },
-    {
-      name: "JavaScript",
-      value: 1000,
-    },
-    {
-      name: "Ruby",
-      value: 1200,
-    },
-    {
-      name: "PHP",
-      value: 400,
-    },
-    {
-      name: "Go",
-      value: 100,
-    },
-    {
-      name: "Python",
-      value: 100,
-    },
-    {
-      name: "Other",
-      value: 100,
-    },
-  ],
-}));
