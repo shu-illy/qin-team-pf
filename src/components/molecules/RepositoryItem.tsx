@@ -12,14 +12,14 @@ const RepositoryItem: FC<Props> = ({ repository }) => {
   return (
     <Stack spacing={8}>
       <Text size={18} weight="bold">
-        {repository.title}
+        {repository.name}
       </Text>
-      <Text size={16}>{repository.title}</Text>
+      <Text size={16}>{repository.description}</Text>
       <Group spacing={18}>
-        <RepositoryStatistic name="star" value={111} />
-        <RepositoryStatistic name="fork" value={111} />
+        <RepositoryStatistic name="star" value={repository.stargazerCount} />
+        <RepositoryStatistic name="fork" value={repository.forkCount} />
       </Group>
-      <LanguagesPercentage languages={repository.languages} />
+      <LanguagesPercentage languages={repository.languages} repository={repository} />
     </Stack>
   );
 };

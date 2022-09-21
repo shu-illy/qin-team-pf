@@ -1,20 +1,24 @@
 import { Group, Progress, Space, Stack, Text, useMantineTheme } from "@mantine/core";
-import { languageColors } from "lib/github/languageColors";
 import React, { FC } from "react";
-import { Languages } from "types";
+import { GithubRepository, Language } from "types";
 
 type Props = {
-  languages: Languages;
+  languages: Language[];
+  repository: GithubRepository;
 };
 
-const LanguagesPercentage: FC<Props> = ({ languages }) => {
+type LanguageParams = {
+  name: string;
+  value: number;
+  color: string;
+};
+
+const LanguagesPercentage: FC<Props> = ({ languages, repository }) => {
   const theme = useMantineTheme();
-  const totalBytes = languages
-    .map((language) => language.value)
-    .reduce((sum, element) => sum + element, 0);
-  const languageParams = languages.map((language) => {
-    const percentage = Math.floor((language.value / totalBytes) * 1000) / 10;
-    const color = languageColors[language.name];
+  const totalBytes = repository.totalSize;
+  const languageParams: LanguageParams[] = languages.map((language: Language) => {
+    const percentage = Math.floor((language.size / totalBytes) * 1000) / 10;
+    const color = language.color;
     return { name: language.name, value: percentage, color: color };
   });
   return (
