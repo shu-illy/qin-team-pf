@@ -6,6 +6,7 @@ export const repositoryLanguagesQuery = gql`query GetRepositoryLanguages($reposi
       nodes {
         id
         name
+        description
         forkCount
         stargazerCount
         languages(first: $languagesFirst) {
