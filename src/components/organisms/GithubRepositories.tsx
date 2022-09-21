@@ -31,7 +31,7 @@ const GithubRepositories: FC<Props> = ({ repositories }) => {
     <Stack spacing={0}>
       <SectionTitle>GitHub</SectionTitle>
       <Stack spacing={24}>
-        <ScrollArea style={{ height: isDesktop ? 880 : 400 }} pr={16}>
+        <ScrollArea style={{ height: isDesktop ? 880 : 400 }} pr={24}>
           <Stack spacing={40}>
             {items.map((repository) => (
               <RepositoryItem key={repository.id} repository={repository} />
