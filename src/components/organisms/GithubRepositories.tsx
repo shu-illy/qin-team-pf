@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { Center, Stack, Text } from "@mantine/core";
+import { Center, ScrollArea, Stack } from "@mantine/core";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
 import RepositoryItem from "components/molecules/RepositoryItem";
 import { repositoryLanguagesQuery } from "lib/github/query.graphql";
+import { useMediaQuery } from "lib/mantine";
 import React, { FC } from "react";
 import { GithubRepository } from "types";
 import { GetRepositoryLanguagesQuery } from "types/github";
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const GithubRepositories: FC<Props> = ({ repositories }) => {
+  const isDesktop = useMediaQuery("sm");
   const { data } = useQuery<GetRepositoryLanguagesQuery>(repositoryLanguagesQuery, {
     variables: { repositoriesFirst: 10, languagesFirst: 10 },
   });
@@ -29,9 +31,14 @@ const GithubRepositories: FC<Props> = ({ repositories }) => {
     <Stack spacing={0}>
       <SectionTitle>GitHub</SectionTitle>
       <Stack spacing={24}>
-        {items.map((repository) => (
-          <RepositoryItem key={repository.id} repository={repository} />
-        ))}
+        <ScrollArea style={{ height: isDesktop ? 880 : 400 }} pr={16}>
+          <Stack spacing={40}>
+            {items.map((repository) => (
+              <RepositoryItem key={repository.id} repository={repository} />
+            ))}
+          </Stack>
+        </ScrollArea>
+
         <Center mt={8}>
           <SectionBottomButton label="View on GitHub" />
         </Center>
