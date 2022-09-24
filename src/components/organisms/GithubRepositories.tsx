@@ -12,16 +12,16 @@ import { queryToRepositories } from "utils/repositoriesQueryConverter";
 
 type Props = {
   repositories: GithubRepository[];
+  accountUrl: string;
 };
 
-const GithubRepositories: FC<Props> = ({ repositories }) => {
+const GithubRepositories: FC<Props> = ({ repositories, accountUrl }) => {
   const isDesktop = useMediaQuery("sm");
   const { data } = useQuery<GetRepositoryLanguagesQuery>(repositoryLanguagesQuery, {
     variables: { repositoriesFirst: 10, languagesFirst: 10 },
   });
 
   const items: GithubRepository[] = data ? queryToRepositories(data) : repositories;
-  const accountUrl = data ? (data.viewer.url as string) : "";
 
   return (
     <Stack spacing={0}>

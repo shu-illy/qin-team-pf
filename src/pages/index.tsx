@@ -12,15 +12,18 @@ import { SWRConfig } from "swr";
 import { ApolloProvider } from "@apollo/client";
 import { fetchRepositories, githubApolloClient } from "lib/github/client";
 import { queryToRepositories } from "utils/repositoriesQueryConverter";
+import { GetRepositoryLanguagesQuery } from "types/github";
 
 type Props = {
   blogs: Blog[];
   portfolios: Portfolio[];
-  repositories: GithubRepository[];
+  githubData: GetRepositoryLanguagesQuery;
   tweets: Tweet[];
 };
 
-const Home: NextPage<Props> = ({ blogs, portfolios, repositories, tweets }) => {
+const Home: NextPage<Props> = ({ blogs, portfolios, githubData, tweets }) => {
+  const githubAccountUrl = githubData.viewer.url as string;
+  const repositories = queryToRepositories(githubData);
   return (
     <Layout showTitleArea>
       <Contents
@@ -33,7 +36,7 @@ const Home: NextPage<Props> = ({ blogs, portfolios, repositories, tweets }) => {
         }
         repositories={
           <ApolloProvider client={githubApolloClient}>
-            <GithubRepositories repositories={repositories} />
+            <GithubRepositories repositories={repositories} accountUrl={githubAccountUrl} />
           </ApolloProvider>
         }
       />
@@ -60,13 +63,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const tweets = twitterResponse.data!;
 
-  const data = await fetchRepositories();
-  const repositories = queryToRepositories(data);
+  const githubData = await fetchRepositories();
 
   const props: Props = {
     blogs: blogData.contents,
     portfolios: portfolioData.contents,
-    repositories: repositories,
+    githubData: githubData,
     tweets: tweets,
   };
 

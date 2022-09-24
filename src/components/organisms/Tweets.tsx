@@ -27,6 +27,7 @@ const Tweets: FC = () => {
       </Center>
     );
 
+  const accountUrl = `https://twitter.com/${data[0].userId}`;
   return (
     <Stack spacing={0}>
       <SectionTitle>Twitter</SectionTitle>
@@ -39,7 +40,7 @@ const Tweets: FC = () => {
       </ScrollArea>
 
       <Space h={24} />
-      <Anchor href={""} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+      <Anchor href={accountUrl} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
         <Center mt={8}>
           <SectionBottomButton label="View on Twitter" />
         </Center>
