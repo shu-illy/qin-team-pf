@@ -1,4 +1,4 @@
-import { Center, Loader, ScrollArea, Space, Stack } from "@mantine/core";
+import { Anchor, Center, Loader, ScrollArea, Space, Stack } from "@mantine/core";
 import axios from "axios";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
@@ -39,9 +39,11 @@ const Tweets: FC = () => {
       </ScrollArea>
 
       <Space h={24} />
-      <Center mt={8}>
-        <SectionBottomButton label="View on Twitter" />
-      </Center>
+      <Anchor href={""} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+        <Center mt={8}>
+          <SectionBottomButton label="View on Twitter" />
+        </Center>
+      </Anchor>
     </Stack>
   );
 };
