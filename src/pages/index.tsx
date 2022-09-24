@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { Layout } from "components/templates/Layout";
 import { Contents } from "components/organisms/Contents";
-import { Blog, GithubRepository, Portfolio, Tweet } from "types";
+import { Blog, Portfolio, Tweet } from "types";
 import { microCmsClient } from "lib/microcms/client";
 import Blogs from "components/organisms/Blogs";
 import { Portfolios } from "components/organisms/Portfolios";
