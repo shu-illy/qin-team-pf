@@ -1,7 +1,5 @@
-import { Blog, BlogResponse } from "types/Blog";
-import { Portfolio } from "types/Portfolio";
-import { GithubRepository, Language } from "types/GithubRepository";
-import { Tweet } from "types/Tweet";
-import { MicroCmsPicture } from "types/MicroCmsPicture";
-
-export type { Blog, BlogResponse, Portfolio, GithubRepository, Language, Tweet, MicroCmsPicture };
+export type { Blog, BlogResponse } from "types/Blog";
+export type { Portfolio } from "types/Portfolio";
+export type { GithubRepository, Language } from "types/GithubRepository";
+export type { Tweet } from "types/Tweet";
+export type { MicroCmsPicture } from "types/MicroCmsPicture";
