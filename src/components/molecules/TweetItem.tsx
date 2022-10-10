@@ -11,7 +11,6 @@ import {
 import { dateFormatted } from "lib/dayjs/ext";
 import React, { FC } from "react";
 import { Tweet } from "types";
-import { useTextColor } from "lib/mantine";
 
 type Props = {
   tweet: Tweet;
@@ -19,7 +18,6 @@ type Props = {
 
 const TweetItem: FC<Props> = ({ tweet }) => {
   const theme = useMantineTheme();
-  const textColor = useTextColor();
   const tweetYear = Number(dateFormatted(tweet.tweetedAt, "YYYY"));
   const currentYear = new Date().getFullYear();
   const tweetDate =
@@ -33,7 +31,7 @@ const TweetItem: FC<Props> = ({ tweet }) => {
         <Avatar src={tweet.userIcon} radius="xl" />
         <Stack spacing={4}>
           <Group spacing={8}>
-            <Text size={16} weight="bold" color={textColor}>
+            <Text size={16} weight="bold">
               {tweet.userName}
             </Text>
             <Text

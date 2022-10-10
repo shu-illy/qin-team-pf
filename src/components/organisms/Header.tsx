@@ -11,7 +11,6 @@ import { useDisclosure } from "@mantine/hooks";
 import NextLink from "next/link";
 import { useMediaQuery } from "lib/mantine/useMediaQuery";
 import { useMantineTheme } from "@mantine/core";
-import { useTextColor, useBackgroundColor } from "lib/mantine";
 import { ColorSchemeButton } from "components/atoms/ColorSchemeButton";
 import { FC } from "react";
 import { pagesPath } from "utils/$path";
@@ -57,19 +56,25 @@ export const Header: FC = () => {
   const isDesktop = useMediaQuery("md");
   const paddingX = isDesktop ? 224 : 16;
   const theme = useMantineTheme();
-  const textColor = useTextColor();
+
+  const defaultTextColor = theme.colorScheme === "dark" ? theme.white : theme.colors.dark[7];
+  const headerItemColor = isDesktop ? defaultTextColor : theme.white;
+  const burgerColor = opened ? theme.white : defaultTextColor;
+  const burger = <Burger opened={opened} color={burgerColor} onClick={toggle} size="sm" />;
 
   const items = links.map((link) => (
     <NextLink key={link.label} href={link.link}>
-      <Text size={18} weight={700} className={classes.link} onClick={() => close()}>
+      <Text
+        size={18}
+        weight={700}
+        color={headerItemColor}
+        className={classes.link}
+        onClick={() => close()}
+      >
         {link.label}
       </Text>
     </NextLink>
   ));
-
-  const burger = (
-    <Burger opened={opened} color={opened ? theme.white : textColor} onClick={toggle} size="sm" />
-  );
 
   return (
     <>
