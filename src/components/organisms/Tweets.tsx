@@ -15,9 +15,11 @@ const twitterFetcher = async (key: string): Promise<Tweet[]> => {
   return res.data;
 };
 
-const Tweets: FC = () => {
-  const isDesktop = useMediaQuery("sm");
+type Props = {
+  scrollHeight: number;
+};
 
+const Tweets: FC<Props> = ({ scrollHeight }) => {
   const { data, error } = useSWR("tweets", twitterFetcher, {});
   if (error) return <div>Failed to get data</div>;
   if (!data)
@@ -31,7 +33,7 @@ const Tweets: FC = () => {
   return (
     <Stack spacing={0}>
       <SectionTitle>Twitter</SectionTitle>
-      <ScrollArea style={{ height: isDesktop ? 880 : 400 }}>
+      <ScrollArea style={{ height: scrollHeight }}>
         <Stack spacing={24}>
           {data.map((tweet) => (
             <TweetItem key={tweet.id} tweet={tweet} />

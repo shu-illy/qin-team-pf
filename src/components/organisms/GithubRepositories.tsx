@@ -13,10 +13,10 @@ import { queryToRepositories } from "utils/repositoriesQueryConverter";
 type Props = {
   repositories: GithubRepository[];
   accountUrl: string;
+  scrollHeight: number;
 };
 
-const GithubRepositories: FC<Props> = ({ repositories, accountUrl }) => {
-  const isDesktop = useMediaQuery("sm");
+const GithubRepositories: FC<Props> = ({ repositories, accountUrl, scrollHeight }) => {
   const { data } = useQuery<GetRepositoryLanguagesQuery>(repositoryLanguagesQuery, {
     variables: { repositoriesFirst: 10, languagesFirst: 10 },
   });
@@ -27,7 +27,7 @@ const GithubRepositories: FC<Props> = ({ repositories, accountUrl }) => {
     <Stack spacing={0}>
       <SectionTitle>GitHub</SectionTitle>
       <Stack spacing={24}>
-        <ScrollArea style={{ height: isDesktop ? 880 : 400 }} pr={24}>
+        <ScrollArea style={{ height: scrollHeight }} pr={24}>
           <Stack spacing={40}>
             {items.map((repository) => (
               <RepositoryItem key={repository.id} repository={repository} />
