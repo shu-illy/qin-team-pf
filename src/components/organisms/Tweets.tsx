@@ -1,4 +1,4 @@
-import { Center, Loader, ScrollArea, Space, Stack } from "@mantine/core";
+import { Anchor, Center, Loader, ScrollArea, Space, Stack } from "@mantine/core";
 import axios from "axios";
 import SectionBottomButton from "components/atoms/SectionBottomButton";
 import { SectionTitle } from "components/atoms/SectionTitle";
@@ -15,9 +15,11 @@ const twitterFetcher = async (key: string): Promise<Tweet[]> => {
   return res.data;
 };
 
-const Tweets: FC = () => {
-  const isDesktop = useMediaQuery("sm");
+type Props = {
+  scrollHeight: number;
+};
 
+const Tweets: FC<Props> = ({ scrollHeight }) => {
   const { data, error } = useSWR("tweets", twitterFetcher, {});
   if (error) return <div>Failed to get data</div>;
   if (!data)
@@ -27,10 +29,11 @@ const Tweets: FC = () => {
       </Center>
     );
 
+  const accountUrl = `https://twitter.com/${data[0].userId}`;
   return (
     <Stack spacing={0}>
       <SectionTitle>Twitter</SectionTitle>
-      <ScrollArea style={{ height: isDesktop ? 880 : 400 }}>
+      <ScrollArea style={{ height: scrollHeight }}>
         <Stack spacing={24}>
           {data.map((tweet) => (
             <TweetItem key={tweet.id} tweet={tweet} />
@@ -39,9 +42,11 @@ const Tweets: FC = () => {
       </ScrollArea>
 
       <Space h={24} />
-      <Center mt={8}>
-        <SectionBottomButton label="View on Twitter" />
-      </Center>
+      <Anchor href={accountUrl} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+        <Center mt={8}>
+          <SectionBottomButton label="View on Twitter" />
+        </Center>
+      </Anchor>
     </Stack>
   );
 };

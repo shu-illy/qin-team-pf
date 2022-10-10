@@ -1,4 +1,4 @@
-import { Group, Stack, Text } from "@mantine/core";
+import { Anchor, Group, Stack, Text } from "@mantine/core";
 import React, { FC } from "react";
 import { GithubRepository } from "types";
 import RepositoryStatistic from "components/molecules/RepositoryStatistic";
@@ -10,17 +10,24 @@ type Props = {
 
 const RepositoryItem: FC<Props> = ({ repository }) => {
   return (
-    <Stack spacing={8}>
-      <Text size={18} weight="bold">
-        {repository.title}
-      </Text>
-      <Text size={16}>{repository.title}</Text>
-      <Group spacing={18}>
-        <RepositoryStatistic name="star" value={111} />
-        <RepositoryStatistic name="fork" value={111} />
-      </Group>
-      <LanguagesPercentage languages={repository.languages} />
-    </Stack>
+    <Anchor
+      href={repository.url}
+      target="_blank"
+      rel="noreferrer"
+      style={{ textDecoration: "none" }}
+    >
+      <Stack spacing={8}>
+        <Text size={18} weight="bold">
+          {repository.name}
+        </Text>
+        <Text size={16}>{repository.description}</Text>
+        <Group spacing={18}>
+          <RepositoryStatistic name="star" value={repository.stargazerCount} />
+          <RepositoryStatistic name="fork" value={repository.forkCount} />
+        </Group>
+        <LanguagesPercentage languages={repository.languages} repository={repository} />
+      </Stack>
+    </Anchor>
   );
 };
 

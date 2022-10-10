@@ -1,12 +1,16 @@
-import { Language } from "types";
-
-export type Languages = { name: Language; value: number }[];
+export type Language = {
+  name: string;
+  size: number;
+  color: string;
+};
 
 export type GithubRepository = {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
+  totalSize: number;
   description: string;
-  star: number;
-  fork: number;
-  languages: Languages;
+  url: string;
+  stargazerCount: number;
+  forkCount: number;
+  languages: Language[];
 };

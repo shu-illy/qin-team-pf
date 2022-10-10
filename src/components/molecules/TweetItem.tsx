@@ -31,7 +31,7 @@ const TweetItem: FC<Props> = ({ tweet }) => {
         <Avatar src={tweet.userIcon} radius="xl" />
         <Stack spacing={4}>
           <Group spacing={8}>
-            <Text size={16} weight="bold" color={theme.black}>
+            <Text size={16} weight="bold">
               {tweet.userName}
             </Text>
             <Text

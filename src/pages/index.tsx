@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { Layout } from "components/templates/Layout";
 import { Contents } from "components/organisms/Contents";
-import { Blog, GithubRepository, Portfolio, Tweet } from "types";
+import { Blog, Portfolio, Tweet } from "types";
 import { microCmsClient } from "lib/microcms/client";
 import Blogs from "components/organisms/Blogs";
 import { Portfolios } from "components/organisms/Portfolios";
@@ -9,26 +9,43 @@ import Tweets from "components/organisms/Tweets";
 import GithubRepositories from "components/organisms/GithubRepositories";
 import { fetchUserTweets } from "lib/twitter/client";
 import { SWRConfig } from "swr";
+import { ApolloProvider } from "@apollo/client";
+import { fetchRepositories, githubApolloClient } from "lib/github/client";
+import { queryToRepositories } from "utils/repositoriesQueryConverter";
+import { GetRepositoryLanguagesQuery } from "types/github";
+import { useMediaQuery } from "lib/mantine";
 
 type Props = {
   blogs: Blog[];
   portfolios: Portfolio[];
-  repositories: GithubRepository[];
+  githubData: GetRepositoryLanguagesQuery;
   tweets: Tweet[];
 };
 
-const Home: NextPage<Props> = (props) => {
+const Home: NextPage<Props> = ({ blogs, portfolios, githubData, tweets }) => {
+  const githubAccountUrl = githubData.viewer.url as string;
+  const repositories = queryToRepositories(githubData);
+  const isDesktop = useMediaQuery("sm");
+  const scrollHeight = isDesktop ? 880 : 400;
   return (
     <Layout showTitleArea>
       <Contents
-        blogs={<Blogs blogs={props.blogs} isAll={false} />}
-        portfolios={<Portfolios isAll={false} portfolios={props.portfolios} />}
+        blogs={<Blogs blogs={blogs} isAll={false} />}
+        portfolios={<Portfolios isAll={false} portfolios={portfolios} />}
         tweets={
-          <SWRConfig value={{ fallback: props.tweets }}>
-            <Tweets />
+          <SWRConfig value={{ fallback: tweets }}>
+            <Tweets scrollHeight={scrollHeight} />
           </SWRConfig>
         }
-        repositories={<GithubRepositories repositories={repositories} />}
+        repositories={
+          <ApolloProvider client={githubApolloClient}>
+            <GithubRepositories
+              repositories={repositories}
+              accountUrl={githubAccountUrl}
+              scrollHeight={scrollHeight}
+            />
+          </ApolloProvider>
+        }
       />
     </Layout>
   );
@@ -53,10 +70,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const tweets = twitterResponse.data!;
 
+  const githubData = await fetchRepositories();
+
   const props: Props = {
     blogs: blogData.contents,
     portfolios: portfolioData.contents,
-    repositories: [],
+    githubData: githubData,
     tweets: tweets,
   };
 
@@ -67,42 +86,3 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default Home;
-
-// TODO ダミー用データ
-const repositories: GithubRepository[] = Array.from(new Array(30)).map((_, i) => ({
-  id: i + 1,
-  title: "lightsound/nexst-tailwind",
-  description: "Next.js starter template.",
-  star: 117,
-  fork: 18,
-  languages: [
-    {
-      name: "TypeScript",
-      value: 1500,
-    },
-    {
-      name: "JavaScript",
-      value: 1000,
-    },
-    {
-      name: "Ruby",
-      value: 1200,
-    },
-    {
-      name: "PHP",
-      value: 400,
-    },
-    {
-      name: "Go",
-      value: 100,
-    },
-    {
-      name: "Python",
-      value: 100,
-    },
-    {
-      name: "Other",
-      value: 100,
-    },
-  ],
-}));

@@ -32,6 +32,17 @@ function MyApp({ Component, pageProps }: AppProps) {
                 },
               },
             },
+            Text: {
+              styles: (theme, params) => {
+                return {
+                  root: {
+                    ...(!params.color && {
+                      color: theme.colorScheme === "dark" ? theme.white : theme.colors.dark[7],
+                    }),
+                  },
+                };
+              },
+            },
           },
         }}
       >

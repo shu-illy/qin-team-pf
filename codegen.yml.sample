@@ -1,0 +1,13 @@
+overwrite: true
+schema:
+  "https://api.github.com/graphql":
+    headers:
+      # GitHubの個人アクセストークンを入れる
+      Authorization: "bearer xxxxxxxxxxxxxxx"
+documents: "src/lib/**/*.graphql.ts"
+generates:
+  src/types/github.ts:
+    plugins:
+      - typescript
+      - "typescript-operations"
+      - "typescript-react-apollo"
