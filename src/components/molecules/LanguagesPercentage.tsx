@@ -18,7 +18,7 @@ const LanguagesPercentage: FC<Props> = ({ languages, repository }) => {
   const theme = useMantineTheme();
   const textColor = useTextColor();
   const totalBytes = repository.totalSize;
-  const languageParams: LanguageParams[] = languages.map((language: Language) => {
+  const languageParams = languages.map<LanguageParams>((language: Language) => {
     const percentage = Math.floor((language.size / totalBytes) * 1000) / 10;
     const color = language.color;
     return { name: language.name, value: percentage, color: color };
